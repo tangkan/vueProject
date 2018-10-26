@@ -1,23 +1,22 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <h2>水果网</h2>
+    <Tabbar></Tabbar>
   </div>
+
 </template>
 
 <script>
+import Tabbar from '@/components/tabbar/Tabbar'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Tabbar
+  }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
