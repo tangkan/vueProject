@@ -18,6 +18,7 @@ export default {
     })
   },
   methods: {
+    //获取路由名，使选中的Tabbar高亮
     ...mapMutations(['changeTabbar'])    
   }
 }
