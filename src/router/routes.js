@@ -39,7 +39,7 @@ export default [
     component: Mine,
   },
   {
-    path: '/detail',
+    path: '/detail:id',
     name: 'detail',
     text: '详情',
     component: Detail,

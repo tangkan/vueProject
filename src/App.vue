@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <h2>水果网</h2>
+    <h1>123</h1>
+    <Button>Default</Button>
     <Tabbar></Tabbar>
   </div>
 
@@ -18,5 +19,5 @@ export default {
 </script>
 
 <style>
-
+@import url('./reset.scss');
 </style>

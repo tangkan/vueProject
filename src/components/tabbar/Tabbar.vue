@@ -8,13 +8,23 @@
          :key="item.path"
          tag='div'
          >
-         {{item.text}}</router-link>
+          <div>
+            <i 
+            :class="`icon iconfont icon-${item.name}-${activetabbar === item.name?'active':'normal'}`" 
+            />
+          </div>
+          <div class="tabbar-text">{{item.text}}</div>
+         </router-link>
     </div>
   </div>
 </template>
 
 <script>
 import routes from '@/router/routes'
+import { 
+  mapMutations,
+  mapState
+   } from 'vuex'
 
 export default {
   name: 'tabbar',
@@ -22,12 +32,17 @@ export default {
     return {
       routes: routes.filter( item => item.isTabbar === true )
     }
+  },
+  computed: {
+    ...mapState(['activetabbar'])
   }
 }
 </script>
 
 
 <style lang="scss" scoped>
+@import url('./icon.scss');
+
 .tabbar {
   display: flex;
   position: absolute;
@@ -35,15 +50,24 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 64px;
-  line-height: 64px;
-  & > div{
+  height: 58px;
+  & > div {
     flex: 1;
     text-align: center;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .iconfont {
+      font-size: 28px;
+    }
+    .tabbar-text {
+      font-size: 14px;
+    }
   }
   .router-link-exact-active,
   .router-link-active {
-    color: #383992;
+    color: #156e53;
     background-color: #8ea56b;
   }
 }
