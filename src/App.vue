@@ -1,52 +1,53 @@
 <template>
-  <div id="app">
-    <div class="header">
-      <div class="address">
-          123
+  <div id="app" class="app">
+    <div class="header-content">
+      <Header></Header>
+    </div>   
+    <div class="main">
+      <transition>
+        <router-view></router-view>
+      </transition>
+    </div>
+
+    <div class="foot">
+      <div v-if="isHasReturnBtn">
       </div>
-      <div class="search">
-        <Input 
-          prefix="ios-search" 
-          placeholder="请输入商品名……"
-          clearable
-           />
-      </div>
-      <div class="login">
-        <Button>登录</Button>
+      <div v-else>
+        <Tabbar></Tabbar>
       </div>
     </div>
 
-  
-    <Tabbar></Tabbar>
   </div>
-
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Tabbar from '@/components/tabbar/Tabbar'
+import Header from '@/components/header/Header'
 
 export default {
   name: 'App',
   components: {
-    Tabbar
+    Tabbar,
+    Header
+  },
+  computed: {
+    ...mapState(['isHasReturnBtn'])
   }
 }
+
 </script>
 
 <style lang="scss">
 @import url('./reset.scss');
-
-.header {
-  display: flex;
-  justify-content: space-around;
-  padding: 5px;
-  border-bottom: 1px solid #dedede;
-  .search {
-    width: 67%;
-    input {
-      background-color: #f7f7f7;
-    }
-  }
+.v-enter-active {
+  transition: opacity .7s;
+}
+.v-enter {
+  opacity: 0;
+}
+.header-content {
+  height: 43px;
 }
 
 </style>

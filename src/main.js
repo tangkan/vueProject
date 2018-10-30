@@ -2,9 +2,13 @@ import Vue from 'vue'
 import vuex from 'vuex'
 import App from './App'
 import router from './router'
-import iView from 'iview';
-import 'iview/dist/styles/iview.css';
+import iView from 'iview'
+import 'iview/dist/styles/iview.css'
 import store from './store'
+import * as ajax from './services'
+
+
+Vue.prototype.$ajax = ajax;
 
 router.beforeEach((to, from, next) => {
   next({

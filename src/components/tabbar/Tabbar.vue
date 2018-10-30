@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-view></router-view>
+    
     <div class="tabbar">
         <router-link
          v-for="item in routes" 
@@ -45,7 +45,7 @@ export default {
 
 .tabbar {
   display: flex;
-  position: absolute;
+  position: fixed;
   background-color: #a8c2ae;
   left: 0;
   right: 0;
@@ -67,7 +67,7 @@ export default {
   }
   .router-link-exact-active,
   .router-link-active {
-    color: #b7e7d9;
+    color: #bef5d7;
     background-color: #a2a899;
   }
 }

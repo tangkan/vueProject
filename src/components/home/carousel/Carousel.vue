@@ -44,8 +44,8 @@ export default {
   width: 100%;
   height: 100%;
   background-color: #187c4a;
-  color: #180d0d
+  color: #180d0d;
+  position: fixed;
 }
-
 
 </style>
