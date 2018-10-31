@@ -2,6 +2,7 @@
   <div>
     
     <div class="tabbar">
+      
         <router-link
          v-for="item in routes" 
          :to="item.path" 
@@ -9,9 +10,18 @@
          tag='div'
          >
           <div>
-            <i 
-            :class="`icon iconfont icon-${item.name}-${activetabbar === item.name?'active':'normal'}`" 
-            />
+            <div v-if="item.path==='/cart'">
+              <Badge :count="allCount">
+                <i 
+                :class="`icon iconfont icon-${item.name}-${activetabbar === item.name?'active':'normal'}`" 
+                />
+              </Badge>
+            </div>
+            <div v-else>
+              <i 
+              :class="`icon iconfont icon-${item.name}-${activetabbar === item.name?'active':'normal'}`" 
+              />
+            </div>
           </div>
           <div class="tabbar-text">{{item.text}}</div>
          </router-link>
@@ -23,7 +33,8 @@
 import routes from '@/router/routes'
 import { 
   mapMutations,
-  mapState
+  mapState,
+  mapGetters
    } from 'vuex'
 
 export default {
@@ -34,8 +45,15 @@ export default {
     }
   },
   computed: {
-    ...mapState(['activetabbar'])
-  }
+    ...mapState(['activetabbar','cart']),
+    ...mapGetters(['allCount']),
+    // allCount() {
+    //   return this.cart.reduce((result,item) => {
+    //     result += item.count;
+    //     return result
+    //   },0);
+    // }
+  },
 }
 </script>
 

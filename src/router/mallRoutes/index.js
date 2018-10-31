@@ -1,4 +1,4 @@
-const mallRightList = () => import('@/components/mall/mallRightList')
+const mallRightList = () => import('@/components/mall/MallRightList')
 
 export default [
   {

@@ -10,8 +10,12 @@
     </div>
     <div class="foot">
       <div class="icon">
-        <div>
-          <Icon type="ios-cart-outline" />
+        <div
+          @click="goToCart"  
+        >
+          <Badge :count="allCount">
+            <Icon type="ios-cart-outline" />
+          </Badge>
           <div>购物车</div>
         </div>
         <div>
@@ -33,7 +37,11 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { 
+  mapState,
+  mapMutations,
+  mapGetters
+   } from 'vuex'
 
 export default {
   name: 'detail',
@@ -45,9 +53,6 @@ export default {
   mounted() {
     this.changeIsHasReturnBtn(true)
   },
-  methods: {
-    ...mapMutations(['changeIsHasReturnBtn','addToCart']),
-  },
   beforeDestroy() {
     this.changeIsHasReturnBtn(false)
   },
@@ -56,6 +61,18 @@ export default {
       .then(resp => {
         this.detail = resp.data.data;
       })
+  },
+  methods: {
+    ...mapMutations(['changeIsHasReturnBtn','addToCart']),
+    goToCart() {
+      this.$router.push({
+        name:'cart'
+      });
+    }
+  },
+  computed: {
+    ...mapState(['cart']),
+    ...mapGetters(['allCount'])
   }
 }
 </script>

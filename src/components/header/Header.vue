@@ -1,37 +1,55 @@
 <template>
   <div class="header">
-        <div class="address">
-            <div v-if="isHasReturnBtn">
-              <Icon 
-                type="ios-arrow-back"
-                @click="goBack()"
-              />
-            </div>
+    <div class="address">
+        <div v-if="isHasReturnBtn">
+          <Icon 
+            type="ios-arrow-back"
+            @click="goBack()"
+          />
         </div>
-        <div class="search">
-          <Input 
-            prefix="ios-search" 
-            placeholder="请输入商品名……"
-            clearable
-            />
-        </div>
-        <div class="login">
-          <Button>登录</Button>
-        </div>
-      </div>
+    </div>
+    <div class="search">
+      <Input 
+        prefix="ios-search" 
+        placeholder="请输入商品名……"
+        clearable
+        />
+    </div>
+    <div 
+      v-if="isListPage"
+      class="icon-content"
+      @click="goToCart"
+      >
+      <Badge :count="allCount">
+        <Icon type="ios-cart-outline" />
+      </Badge>
+    </div>
+    <div v-else class="login">
+      <Button>登录</Button>
+    </div>
+  </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { 
+  mapState,
+  mapGetters
+   } from 'vuex'
 
 export default {
   name: 'headedr',
   computed: {
-    ...mapState(['isHasReturnBtn'])
+    ...mapState(['isHasReturnBtn','isListPage']),
+    ...mapGetters(['allCount'])
   },
   methods: {
     goBack() {
       this.$router.back();
+    },
+    goToCart() {
+      this.$router.push({
+        name:'cart'
+      });
     }
   }
 }
@@ -57,6 +75,14 @@ export default {
     text-align: center;
     line-height: 32px;
     font-size: 28px;
+  }
+  .icon-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    i {
+      font-size: 25px;
+    }
   }
 }
 </style>

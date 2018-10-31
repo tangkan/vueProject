@@ -15,7 +15,9 @@
         <h1>{{item.title}}</h1>
         <p>{{item.dec}}</p>
         <p>￥{{item.price}}</p>
-        <Button>加入购物车</Button>
+        <Button
+          @click="addToCart(item)"
+        >加入购物车</Button>
       </div>
     </div>
   </div>
@@ -32,10 +34,15 @@ export default {
     }
   },
   mounted() {
-    this.changeIsHasReturnBtn(true)
+    this.changeIsHasReturnBtn(true);
+    this.changeCartIcon(true)
+  },
+  beforeDestroy() {
+    this.changeIsHasReturnBtn(false)
+    this.changeCartIcon(false)
   },
   methods: {
-    ...mapMutations(['changeIsHasReturnBtn']),
+    ...mapMutations(['changeIsHasReturnBtn','changeCartIcon','addToCart']),
     goToDetail(id) {
       this.$router.push({
         name:'detail',
@@ -44,9 +51,6 @@ export default {
         }
       })
     }
-  },
-  beforeDestroy() {
-    this.changeIsHasReturnBtn(false)
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -77,6 +81,7 @@ export default {
   .right {
     width: 64%;
     margin-left: 10px;
+    padding-top: 2px;
     display: flex;
     flex-direction: column;
     h1 {
