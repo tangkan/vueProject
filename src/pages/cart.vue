@@ -51,7 +51,9 @@
         <p>
           <em>合计:</em><span>￥{{allCheckedPrice}}</span>
           </p>
-        <div>去结算({{allCheckedCount}})</div>
+        <div
+          @click="jiesuan"
+        >去结算({{allCheckedCount}})</div>
       </div>
     </div>
   </div>
@@ -133,10 +135,17 @@ export default {
     },
     goToHome() {
       this.$router.push('/home');
+    },
+    jiesuan() {
+      if(this.isLogin){
+        alert("再去逛逛吧！！")
+      }else{
+        this.$router.push('/login')
+      }
     }
   },
   computed: {
-    ...mapState(['cart']),
+    ...mapState(['cart','isLogin']),
     ...mapGetters(['allCount','allPrice','isAllChecked','allCheckedCount','allCheckedPrice']),
   },
   watch: {
@@ -286,14 +295,18 @@ export default {
     flex-wrap: wrap;
     li {
       width: 50%;
-      height: 250px;
+      height: 210px;
       .img {
-        width: 185px;
-        height: 185px;
-        margin-left: 7px;
+        width: 150px;
+        height: 150px;
+        margin-left: 20px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
       }
       p {
-        margin-left: 7px;
+        margin-left: 22px;
         font-size: 16px;
       }
       .p1 {

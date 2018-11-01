@@ -21,8 +21,15 @@
     </div>
     <div class="mine-footer">
       <Button
+        v-if="isLogin"
         @click="logout"
-      >退出登录</Button>
+      >退出登录
+      </Button>
+      <Button
+        v-else
+        @click="login"
+      >登录
+      </Button>
     </div>
   </div>
 </template>
@@ -52,7 +59,13 @@ export default {
     logout() {
       this.changeIsLogin(false);
       this.$router.push('login');
+    },
+    login() {
+      this.$router.push('login');
     }
+  },
+  computed: {
+    ...mapState(['isLogin']),
   }
 }
 </script>

@@ -41,7 +41,7 @@ export default {
       searchHistory: [],
       recommend: [],
       searchResult: [],
-      keyword: window.localStorage.getItem('keyword').split(',') || []
+      keyword: Boolean(window.localStorage.getItem('keyword')) ? window.localStorage.getItem('keyword').split(',') : []
     }
   },
   created() {

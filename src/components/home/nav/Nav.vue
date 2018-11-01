@@ -31,9 +31,12 @@ export default {
     height: 100%;
     justify-content: space-around;
     li{
-      width: 103px;
+      width: 90px;
       height: 79px;
       text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

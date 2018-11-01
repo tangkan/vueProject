@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       keyword:'',
-      keywords: window.localStorage.getItem('keyword').split(',') || []
+      keywords: Boolean(window.localStorage.getItem('keyword')) ? window.localStorage.getItem('keyword').split(',') : []
     }
   },
   computed: {

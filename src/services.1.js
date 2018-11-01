@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Indicator } from 'mint-ui';
 
 const ajax = axios.create({
-  baseURL: "http://localhost:8000"
+  baseURL: "http://rap2api.taobao.org/app/mock/85803"
 });
 
 // 请求前拦截处理
@@ -20,12 +20,12 @@ export const getMallRightList = () => {
   return ajax.get("/api/v1/mallRightList")
 }
 
-export const getList = () => {
-  return ajax.get('/api/v1/list')
+export const getList = (id) => {
+  return ajax.get(`/api/v1/list?${id}`)
 }
 
 export const getDetail = (id) => {
-  return ajax.get(`/api/v1/detail/${id}`)
+  return ajax.get(`/api/v1/detail?${id}`)
 }
 
 export const getRecommend = () => {

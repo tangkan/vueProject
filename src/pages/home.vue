@@ -5,6 +5,9 @@
       >
         <TabPane label="推荐" name="name1">
           <Carousel></Carousel>
+          <div class="name1-img"></div>
+          <div class="name1-img"></div>
+          <div class="name1-img"></div>
         </TabPane>
         <TabPane label="水果" name="name2">
           <Carousel></Carousel>
@@ -58,7 +61,7 @@ export default {
     ...mapMutations(['changeTabbar'])    
   },
   mounted() {
-    console.log(this.logining)
+
   },
   computed:{
     ...mapState(['logining'])
@@ -78,7 +81,13 @@ export default {
 }
 
 .ivu-tabs-bar {
-    margin-bottom: 1px;
-  }
+  margin-bottom: 1px;
+}
+
+.name1-img {
+  height: 100px;
+  background-color: #dedede;
+  margin: 14px 10px;
+}
 
 </style>
