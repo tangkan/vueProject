@@ -6,6 +6,8 @@ const Cart = () => import('@/pages/cart')
 const Mine = () => import('@/pages/mine')
 const Detail = () => import('@/pages/detail')
 const List = () => import('@/pages/list')
+const Login = () => import('@/pages/login')
+const Search = () => import('@/pages/search')
 
 
 export default [
@@ -57,5 +59,17 @@ export default [
     name: 'detail',
     text: '详情',
     component: Detail,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    text: '登录',
+    component: Login,
+  },
+  {
+    path: '/search',
+    name: 'search',
+    text: '搜索',
+    component: Search,
   }
 ]

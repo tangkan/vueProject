@@ -43,7 +43,7 @@ export default {
 .demo-carousel {
   width: 100%;
   height: 100%;
-  background-color: #187c4a;
+  background-color: #93c9ae;
   color: #180d0d;
   position: fixed;
 }

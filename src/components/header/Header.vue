@@ -13,6 +13,8 @@
         prefix="ios-search" 
         placeholder="请输入商品名……"
         clearable
+        v-model="keyword"
+        @on-focus="gotoSearch"
         />
     </div>
     <div 
@@ -24,8 +26,26 @@
         <Icon type="ios-cart-outline" />
       </Badge>
     </div>
+    <div 
+      v-else-if="isSearchPage"
+      class="search-content"
+      >
+      <Button
+        @click="getSearch"
+      >搜索</Button>
+    </div>
     <div v-else class="login">
-      <Button>登录</Button>
+      <Button
+        v-if="!isLogin"
+        @click="goToLogin"
+      >登录</Button>
+      <p 
+        class="username"
+        v-else
+        @click="goToMine"
+        >
+        {{username}}
+      </p>
     </div>
   </div>
 </template>
@@ -38,8 +58,14 @@ import {
 
 export default {
   name: 'headedr',
+  data() {
+    return {
+      keyword:'',
+      keywords: window.localStorage.getItem('keyword').split(',') || []
+    }
+  },
   computed: {
-    ...mapState(['isHasReturnBtn','isListPage']),
+    ...mapState(['isHasReturnBtn','isListPage','isLogin','username','isSearchPage']),
     ...mapGetters(['allCount'])
   },
   methods: {
@@ -47,9 +73,27 @@ export default {
       this.$router.back();
     },
     goToCart() {
+      this.$router.push("/cart");
+    },
+    goToLogin() {
+      this.$router.push("/login")
+    },
+    goToMine() {
+      this.$router.push("/mine")
+    },
+    gotoSearch() {
+      this.$router.push("/search")
+    },
+    getSearch() {
+      this.keywords.unshift(this.keyword);
+      // 先将要搜索的keyword存入localStorage中
+      window.localStorage.setItem('keyword',this.keywords.toString())
       this.$router.push({
-        name:'cart'
-      });
+        name: 'list',
+        params: {
+          id: this.keyword
+        }
+      })
     }
   }
 }
@@ -65,13 +109,13 @@ export default {
   border-bottom: 1px solid #dedede;
   background-color: #a8c2ae;
   .search {
-    width: 67%;
+    width: 237px;
     input {
       background-color: #f7f7f7;
     }
   }
   .address {
-    width: 46px;
+    width: 30px;
     text-align: center;
     line-height: 32px;
     font-size: 28px;
@@ -83,6 +127,12 @@ export default {
     i {
       font-size: 25px;
     }
+  }
+  .username {
+    text-align: center;
+    height: 32px;
+    line-height: 32px;
+    font-weight: bolder;
   }
 }
 </style>

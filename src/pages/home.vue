@@ -37,6 +37,7 @@
 <script>
 import { 
   mapMutations,
+  mapState,
    } from 'vuex'; 
 import Carousel from '@/components/home/carousel/Carousel';
 import Nav from '@/components/home/nav/Nav';
@@ -55,6 +56,12 @@ export default {
   methods: {
     //获取路由名，使选中的Tabbar高亮
     ...mapMutations(['changeTabbar'])    
+  },
+  mounted() {
+    console.log(this.logining)
+  },
+  computed:{
+    ...mapState(['logining'])
   }
 }
 </script>

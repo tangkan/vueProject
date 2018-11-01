@@ -1,5 +1,6 @@
 <template>
-  <div>
+ <div>
+  <div v-if="allCount !==0">
     <div class="header">已免运费</div>
     <div class="goods-content">
       <div 
@@ -8,7 +9,13 @@
         :key="item.id"
         >
         <div class="isChecked">
-          <label><input type="checkbox"></label>
+          <label>
+            <input 
+              type="checkbox"
+              @change="changeChecked(item.id)"
+              :checked="item.isChecked"
+              >
+          </label>
         </div>
         <div 
           class="left"
@@ -33,16 +40,44 @@
     </div>
     <div class="balance">
       <div class="allChecked">
-        <label><input type="checkbox">全选</label>
+        <label>
+          <input
+            type="checkbox"
+            :checked="isAllChecked"
+            @change="changeAllChecked"
+          >全选</label>
       </div>
       <div class="payment">
         <p>
-          <em>合计:</em><span>￥{{allPrice}}</span>
+          <em>合计:</em><span>￥{{allCheckedPrice}}</span>
           </p>
-        <div>去结算({{allCount}})</div>
+        <div>去结算({{allCheckedCount}})</div>
       </div>
     </div>
   </div>
+  <div v-else class="">
+    <div class="shopping">
+      <p>暂时还没有商品，您可以</p>
+      <Button
+        @click="goToHome"
+      >回首页逛逛</Button>
+    </div>
+    <div class="Recommend">
+      <h1>为您推荐</h1>
+      <ul>
+        <li
+          v-for="item in reommentData"
+          :key="item.id"
+          @click="goToDetail(item.id)"
+        >
+          <div class="img"><img :src="item.img" alt=""></div>
+          <p class="p1">{{item.title}}</p>
+          <p class="p2">￥{{item.price}}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+ </div>
 </template>
 
 <script>
@@ -54,20 +89,32 @@ import {
 
 export default {
   name: 'cart',
+  data() {
+    return {
+      reommentData:[]
+    }
+  },
   beforeRouteEnter (to, from ,next) {
     next(vm =>{
       vm.changeTabbar(vm.$route.name)
     })
   },
-  created() {
+  mounted() {
     this.changeIsHasReturnBtn(true)
+    if(this.allCount === 0){
+      this.$ajax.getRecommend()
+        .then(res => {
+          this.reommentData = res.data.data;
+        })
+    }
   },
   beforeDestroy() {
     this.changeIsHasReturnBtn(false)
   },
   methods: {
     //获取路由名，使选中的Tabbar高亮
-    ...mapMutations(['changeTabbar','addCount','reduceCount','changeIsHasReturnBtn']),
+    ...mapMutations(['changeTabbar','addCount','reduceCount',
+    'changeIsHasReturnBtn','changeChecked','changeAllChecked']),
     goToDetail(id) {
       this.$router.push({
         name: 'detail',
@@ -75,11 +122,32 @@ export default {
           id
         }
       });
-    } 
+    },
+    goToDetail(id) {
+      this.$router.push({
+        name: 'detail',
+        params: {
+          id
+        }
+      });
+    },
+    goToHome() {
+      this.$router.push('/home');
+    }
   },
   computed: {
     ...mapState(['cart']),
-    ...mapGetters(['allCount','allPrice'])
+    ...mapGetters(['allCount','allPrice','isAllChecked','allCheckedCount','allCheckedPrice']),
+  },
+  watch: {
+    allCount: function(value,oldValue){
+      if(value === 0){
+        this.$ajax.getRecommend()
+          .then(res => {
+            this.reommentData = res.data.data;
+          })
+      }
+    }
   }
 }
 </script>
@@ -164,7 +232,7 @@ export default {
     }
   }
   .right {
-    width: 55%;
+    width: 52%;
     margin-left: 10px;
     display: flex;
     flex-direction: column;
@@ -190,6 +258,52 @@ export default {
         text-align: center;
         display: block;
         border: 1px solid #dedede;
+      }
+    }
+  }
+}
+
+.shopping {
+  width: 100%;
+  height: 200px;
+  background-color: #effaf7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    color: #a8c2ae
+  }
+}
+
+.Recommend {
+  h1 {
+    font-size: 20px;
+    margin: 10px 0;
+    text-align: center;
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    li {
+      width: 50%;
+      height: 250px;
+      .img {
+        width: 185px;
+        height: 185px;
+        margin-left: 7px;
+      }
+      p {
+        margin-left: 7px;
+        font-size: 16px;
+      }
+      .p1 {
+        height: 26px;
+        line-height: 26px;
+        font-weight: bolder;
+        margin-bottom: 3px;
+      }
+      .p2 {
+        color: #f04b22;
       }
     }
   }

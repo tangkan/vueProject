@@ -1,15 +1,16 @@
 <template>
   <div id="app" class="app">
-    <div class="header-content">
-      <Header></Header>
+    <div v-if="isMinePage === false">
+      <div class="header-content" v-if="logining === false">
+        <Header></Header>        
+      </div>
     </div>   
     <div class="main">
       <transition>
         <router-view></router-view>
       </transition>
     </div>
-
-    <div class="foot">
+    <div class="foot" v-if="logining === false">
       <div v-if="isHasReturnBtn">
       </div>
       <div v-else>
@@ -32,7 +33,7 @@ export default {
     Header
   },
   computed: {
-    ...mapState(['isHasReturnBtn'])
+    ...mapState(['isLogin','isHasReturnBtn','logining','isMinePage'])
   }
 }
 
@@ -40,6 +41,7 @@ export default {
 
 <style lang="scss">
 @import url('./reset.scss');
+
 .v-enter-active {
   transition: opacity .7s;
 }
