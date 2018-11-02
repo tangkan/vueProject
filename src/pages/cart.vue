@@ -88,6 +88,7 @@ import {
   mapState,
   mapGetters
    } from 'vuex'; 
+import { Toast } from 'mint-ui'
 
 export default {
   name: 'cart',
@@ -137,10 +138,15 @@ export default {
       this.$router.push('/home');
     },
     jiesuan() {
-      if(this.isLogin){
-        alert("再去逛逛吧！！")
+      if(this.allCheckedCount !== 0){
+        
+        if(this.isLogin){
+          Toast('再去逛逛吧~');
+        }else{
+          this.$router.push('/login')
+        }
       }else{
-        this.$router.push('/login')
+        Toast('至少要有一件商品');
       }
     }
   },
