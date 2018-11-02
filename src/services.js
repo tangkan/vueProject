@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { Indicator } from 'mint-ui';
 
+const isDev = process.env.NODE_ENV === 'development';
 const ajax = axios.create({
-  baseURL: "http://localhost:8000"
+  baseURL: isDev? "http://localhost:8000" : "xxxxxxx"
 });
 
 // 请求前拦截处理
@@ -35,10 +36,6 @@ export const getRecommend = () => {
 export const login = () => {
   return ajax.get("/api/v1/login")
 }
-
-// export const getHistoryData = (his) => {
-//   return ajax.get("/api/v1/history")
-// }
 
 export const getHotSearchData = (hot) => {
   return ajax.get("/api/v1/history")
