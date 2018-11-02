@@ -7,6 +7,8 @@
         class="content"
         v-for="item in cart"
         :key="item.id"
+        @touchstart="onItemTouchStart(item.id)"
+        @touchend="onItemTouchEnd"
         >
         <div class="isChecked">
           <label>
@@ -117,7 +119,7 @@ export default {
   methods: {
     //获取路由名，使选中的Tabbar高亮
     ...mapMutations(['changeTabbar','addCount','reduceCount',
-    'changeIsHasReturnBtn','changeChecked','changeAllChecked']),
+    'changeIsHasReturnBtn','changeChecked','changeAllChecked','deleteCartItemById']),
     goToDetail(id) {
       this.$router.push({
         name: 'detail',
@@ -148,6 +150,23 @@ export default {
       }else{
         Toast('至少要有一件商品');
       }
+    },
+    onItemTouchStart(id) {
+      this.timer = setTimeout(() => {
+        this.$messagebox({
+          title: '确认删除',
+          message: `您确定要删除${id}吗?`,
+          showCancelButton: true,
+        }).then((action) => {
+          if (action === 'confirm') {
+            this.deleteCartItemById(id);
+            this.$toast('删除成功');
+          }
+        });
+      }, 2000);
+    },
+    onItemTouchEnd() {
+      clearTimeout(this.timer);
     }
   },
   computed: {

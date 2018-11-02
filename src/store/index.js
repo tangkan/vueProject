@@ -53,6 +53,9 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    deleteCartItemById(state, id){
+      state.cart = state.cart.filter(item => item.id !== id);
+    },
     changeCartIcon(state,bool) {
       state.isListPage = bool;
     },
