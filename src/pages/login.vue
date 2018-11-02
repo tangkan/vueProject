@@ -25,7 +25,7 @@ import {
   mapMutations,
   mapActions
 } from 'vuex'
-
+import { Toast } from 'mint-ui'
 export default {
   name: 'login',
   data() {
@@ -50,6 +50,7 @@ export default {
   watch: {
     isLogin(n) {
       if(n === true){
+        Toast("登录成功！")
         this.changeLogining(false)
         this.changeIsLogin(true);
         const path = this.$route.params.to ? this.$route.params.to.path : '/';
