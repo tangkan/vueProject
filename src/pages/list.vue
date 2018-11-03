@@ -9,7 +9,9 @@
         class="left"
         @click="goToDetail(item.id)"
         >
-        <img :src="`${item.img}`" alt="">
+        <img  
+          v-lazy="item.img"
+          alt="">
       </div>
       <div class="right">
         <h1>{{item.title}}</h1>
